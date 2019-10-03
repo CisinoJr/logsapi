@@ -1,0 +1,19 @@
+spring:
+
+  datasource:
+    password: LOGSAPI
+    url: jdbc:postgresql://localhost:5432/LOGS_API
+    username: LOGS
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+server:
+  port: 8080
+  servlet:
+    context-path: /api

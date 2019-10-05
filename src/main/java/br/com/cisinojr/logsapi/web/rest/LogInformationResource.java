@@ -23,14 +23,14 @@ import java.util.Optional;
  */
 @RestController
 @RequestMapping("/logs")
-public class LogInformationController {
-    private final Logger log = LoggerFactory.getLogger(LogInformationController.class);
+public class LogInformationResource {
+    private final Logger log = LoggerFactory.getLogger(LogInformationResource.class);
 
     private static final String ENTITY_NAME = "logInformation";
 
     private final LogInformationService logInformationService;
 
-    public LogInformationController(LogInformationService logInformationService) {
+    public LogInformationResource(LogInformationService logInformationService) {
         this.logInformationService = logInformationService;
     }
 

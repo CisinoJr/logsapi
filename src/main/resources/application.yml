@@ -1,5 +1,16 @@
 spring:
+  application:
+    name: LogsAPI
 
+  ## SERVLET CONFIG
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 128MB
+      max-request-size: 128MB
+
+  ## DATABASE CONFIG
   datasource:
     password: LOGSAPI
     url: jdbc:postgresql://localhost:5432/LOGS_API
@@ -10,6 +21,10 @@ spring:
       ddl-auto: update
     properties:
       hibernate:
+        generate_statistics: true
+        jdbc:
+          batch_size: 4
+          order_inserts: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         temp:
           use_jdbc_metadata_defaults: false

@@ -4,10 +4,13 @@ import br.com.cisinojr.logsapi.service.dto.LogInformationDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
- * Service for managing Aula.
+ * Service for managing LogInformation.
+ * @author cisinojr
  */
 public interface LogInformationService {
 
@@ -18,6 +21,13 @@ public interface LogInformationService {
      * @return the persisted entity
      */
     LogInformationDTO save(LogInformationDTO logInformationDTO);
+
+    /**
+     * Save a log information in batch.
+     *
+     * @return collection of entities.
+     */
+    Set<LogInformationDTO> saveAll(Set<LogInformationDTO> dtos);
 
     /**
      * Get all the logs.

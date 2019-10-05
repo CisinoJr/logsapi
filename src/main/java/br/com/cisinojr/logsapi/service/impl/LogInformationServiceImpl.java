@@ -12,7 +12,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import org.springframework.transaction.annotation.Transactional;
-import java.util.Optional;
+
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing Aula.
@@ -45,6 +47,21 @@ public class LogInformationServiceImpl implements LogInformationService {
         LogInformation logInformation = logInformationMapper.toEntity(logInformationDTO);
         logInformation = logInformationRepository.save(logInformation);
         return logInformationMapper.toDto(logInformation);
+    }
+
+    /**
+     * Save a log information in batch.
+     *
+     * @return collection of entities.
+     */
+    @Override
+    public Set<LogInformationDTO> saveAll(Set<LogInformationDTO> dtos) {
+        Set<LogInformation> entities = dtos.stream().map(logInformationMapper::toEntity).collect(Collectors.toSet());
+        Iterable<LogInformation> iterable = Collections.unmodifiableSet(entities);
+        return logInformationRepository.saveAll(iterable)
+                .stream()
+                .map(logInformationMapper::toDto)
+                .collect(Collectors.toSet());
     }
 
     /**

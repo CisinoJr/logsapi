@@ -1,37 +1,36 @@
 package br.com.cisinojr.logsapi.service.dto;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class SearchCriteria {
 
-    private String key;
-    private String operation;
-    private Object value;
+    private String ip;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
-    public SearchCriteria() {}
-
-    public String getKey() {
-        return key;
+    public String getIp() {
+        return ip;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setIp(String ip) {
+        this.ip = ip;
     }
 
-    public String getOperation() {
-        return operation;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public void setOperation(String operation) {
-        this.operation = operation;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
 
-    public Object getValue() {
-        return value;
+    public LocalDateTime getEndDate() {
+        return endDate;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
     }
 
     @Override
@@ -39,22 +38,22 @@ public class SearchCriteria {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SearchCriteria that = (SearchCriteria) o;
-        return Objects.equals(key, that.key) &&
-                Objects.equals(operation, that.operation) &&
-                Objects.equals(value, that.value);
+        return Objects.equals(ip, that.ip) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(endDate, that.endDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(key, operation, value);
+        return Objects.hash(ip, startDate, endDate);
     }
 
     @Override
     public String toString() {
         return "SearchCriteria{" +
-                "key='" + key + '\'' +
-                ", operation='" + operation + '\'' +
-                ", value=" + value +
+                "ip='" + ip + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 '}';
     }
 

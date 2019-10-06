@@ -2,11 +2,13 @@ package br.com.cisinojr.logsapi.service.dto.builder;
 
 import br.com.cisinojr.logsapi.service.dto.SearchCriteria;
 
-public final class SearchCriteriaBuilder {
+import java.time.LocalDateTime;
 
-    private String key;
-    private String operation;
-    private Object value;
+public final class SearchCriteriaBuilder {
+    
+    private String ip;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     private SearchCriteriaBuilder() {
     }
@@ -15,26 +17,26 @@ public final class SearchCriteriaBuilder {
         return new SearchCriteriaBuilder();
     }
 
-    public SearchCriteriaBuilder withKey(String key) {
-        this.key = key;
+    public SearchCriteriaBuilder withIp(String ip) {
+        this.ip = ip;
         return this;
     }
 
-    public SearchCriteriaBuilder withOperation(String operation) {
-        this.operation = operation;
+    public SearchCriteriaBuilder withStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
         return this;
     }
 
-    public SearchCriteriaBuilder withValue(Object value) {
-        this.value = value;
+    public SearchCriteriaBuilder withEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
         return this;
     }
 
     public SearchCriteria build() {
         SearchCriteria searchCriteria = new SearchCriteria();
-        searchCriteria.setKey(key);
-        searchCriteria.setOperation(operation);
-        searchCriteria.setValue(value);
+        searchCriteria.setIp(ip);
+        searchCriteria.setStartDate(startDate);
+        searchCriteria.setEndDate(endDate);
         return searchCriteria;
     }
 

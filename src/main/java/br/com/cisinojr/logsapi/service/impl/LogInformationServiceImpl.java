@@ -4,10 +4,13 @@ import br.com.cisinojr.logsapi.domain.LogInformation;
 import br.com.cisinojr.logsapi.repository.LogInformationRepository;
 import br.com.cisinojr.logsapi.service.LogInformationService;
 import br.com.cisinojr.logsapi.service.dto.LogInformationDTO;
+import br.com.cisinojr.logsapi.service.dto.SearchCriteria;
 import br.com.cisinojr.logsapi.service.mapper.LogInformationMapper;
+import javafx.beans.binding.BooleanExpression;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static br.com.cisinojr.logsapi.service.specification.LogInformationSpecification.hasIp;
+import static br.com.cisinojr.logsapi.service.specification.LogInformationSpecification.isBetween;
 
 /**
  * Service Implementation for managing Aula.
@@ -71,10 +77,21 @@ public class LogInformationServiceImpl implements LogInformationService {
      * @return the list of entities
      */
     @Override
-    public Page<LogInformationDTO> findAll(Pageable pageable) {
+    public Page<LogInformationDTO> findAll(Pageable pageable, SearchCriteria searchCriteria) {
         log.debug("Request to get all LogInformation");
-        return logInformationRepository.findAll(pageable)
-                .map(logInformationMapper::toDto);
+        Page<LogInformationDTO> result = null;
+
+        if (searchCriteria.getIp() != null) {
+            result = logInformationRepository.findAll(hasIp(searchCriteria.getIp()), pageable)
+                    .map(logInformationMapper::toDto);
+        }
+
+        if (searchCriteria.getStartDate() != null && searchCriteria.getEndDate() != null) {
+            result = logInformationRepository.findAll(isBetween(searchCriteria.getStartDate(), searchCriteria.getEndDate()), pageable)
+                    .map(logInformationMapper::toDto);
+        }
+
+        return result;
     }
 
     /**

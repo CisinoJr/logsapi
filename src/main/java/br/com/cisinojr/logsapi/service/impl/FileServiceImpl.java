@@ -31,8 +31,8 @@ public class FileServiceImpl implements FileService {
      * @return log information.
      */
     @Override
-    public Set<LogInformationDTO> readAndStoreLogInformation(MultipartFile file) {
-        return loginInformationService.saveAll(readLogFile(file));
+    public boolean readAndStoreLogInformation(MultipartFile file) {
+        return loginInformationService.saveAll(readLogFile(file)).size() > 0;
     }
 
     private Set<LogInformationDTO> readLogFile(MultipartFile file) {

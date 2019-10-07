@@ -81,13 +81,18 @@ public class LogInformationServiceImpl implements LogInformationService {
         log.debug("Request to get all LogInformation");
         Page<LogInformationDTO> result = null;
 
-        if (searchCriteria.getIp() != null) {
-            result = logInformationRepository.findAll(hasIp(searchCriteria.getIp()), pageable)
-                    .map(logInformationMapper::toDto);
-        }
+        if (searchCriteria != null) {
+            if (searchCriteria.getIp() != null) {
+                result = logInformationRepository.findAll(hasIp(searchCriteria.getIp()), pageable)
+                        .map(logInformationMapper::toDto);
+            }
 
-        if (searchCriteria.getStartDate() != null && searchCriteria.getEndDate() != null) {
-            result = logInformationRepository.findAll(isBetween(searchCriteria.getStartDate(), searchCriteria.getEndDate()), pageable)
+            if (searchCriteria.getStartDate() != null && searchCriteria.getEndDate() != null) {
+                result = logInformationRepository.findAll(isBetween(searchCriteria.getStartDate(), searchCriteria.getEndDate()), pageable)
+                        .map(logInformationMapper::toDto);
+            }
+        } else {
+            result = logInformationRepository.findAll(pageable)
                     .map(logInformationMapper::toDto);
         }
 

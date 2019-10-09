@@ -1,15 +1,32 @@
 spring:
+  application:
+    name: LogsAPI
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  ## SERVLET CONFIG
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 128MB
+      max-request-size: 128MB
 
+  ## DATABASE CONFIG
   datasource:
-    password: LOGSAPI
     url: jdbc:postgresql://localhost:5432/LOGS_API
+    password: LOGSAPI
     username: LOGS
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     hibernate:
+      # update; create-drop; create
       ddl-auto: update
     properties:
       hibernate:
+        generate_statistics: true
+        jdbc:
+          batch_size: 4
+          order_inserts: true
         dialect: org.hibernate.dialect.PostgreSQLDialect
         temp:
           use_jdbc_metadata_defaults: false
@@ -17,3 +34,10 @@ server:
   port: 8080
   servlet:
     context-path: /api
+
+logging:
+  level:
+    org.springframework.web: DEBUG
+    br.com.cisinojr.logsapi.web.rest: DEBUG
+    br.com.cisinojr.logsapi.service.impl: DEBUG
+    org.hibernate: DEBUG

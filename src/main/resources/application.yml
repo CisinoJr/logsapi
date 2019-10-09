@@ -1,7 +1,8 @@
 spring:
   application:
     name: LogsAPI
-
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
   ## SERVLET CONFIG
   servlet:
     multipart:

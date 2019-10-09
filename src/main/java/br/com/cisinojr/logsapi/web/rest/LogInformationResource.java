@@ -2,6 +2,7 @@ package br.com.cisinojr.logsapi.web.rest;
 
 import br.com.cisinojr.logsapi.service.LogInformationService;
 import br.com.cisinojr.logsapi.service.dto.LogInformationDTO;
+import br.com.cisinojr.logsapi.service.dto.SearchCriteria;
 import br.com.cisinojr.logsapi.web.rest.errors.BadRequestAlertException;
 import br.com.cisinojr.logsapi.web.rest.util.HeaderUtil;
 import br.com.cisinojr.logsapi.web.rest.util.PaginationUtil;
@@ -78,14 +79,14 @@ public class LogInformationResource {
     /**
      * GET  /logs : get all the logInformation.
      *
-     * @param pageable the pagination information
-     * @param filter   the filter of the request
+     * @param pageable       the pagination information
+     * @param searchCriteria the object with filter of the entities
      * @return the ResponseEntity with status 200 (OK) and the list of logInformation in body
      */
-    @GetMapping
-    public ResponseEntity<List<LogInformationDTO>> getAllLogInformation(Pageable pageable, @RequestParam(required = false) String filter) {
+    @PostMapping(path = "/all")
+    public ResponseEntity<List<LogInformationDTO>> filterLogInformation(Pageable pageable, @RequestBody(required = false) SearchCriteria searchCriteria) {
         log.debug("REST request to get a page of LogInformation");
-        Page<LogInformationDTO> page = logInformationService.findAll(pageable);
+        Page<LogInformationDTO> page = logInformationService.findAll(pageable, searchCriteria);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/logs");
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

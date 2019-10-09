@@ -1,6 +1,7 @@
 package br.com.cisinojr.logsapi.service;
 
 import br.com.cisinojr.logsapi.service.dto.LogInformationDTO;
+import br.com.cisinojr.logsapi.service.dto.SearchCriteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -35,7 +36,7 @@ public interface LogInformationService {
      * @param pageable the pagination information
      * @return the list of entities
      */
-    Page<LogInformationDTO> findAll(Pageable pageable);
+    Page<LogInformationDTO> findAll(Pageable pageable, SearchCriteria searchCriteria);
 
     /**
      * Get the "id" avaliacao.

@@ -32,21 +32,8 @@ public class UploadResource {
      * @return log information.
      */
     @PostMapping
-    public Set<LogInformationDTO> upload(@RequestParam("file") MultipartFile file) {
+    public boolean upload(@RequestParam("file") MultipartFile file) {
         return fileService.readAndStoreLogInformation(file);
-    }
-
-    /**
-     * POST /multiple Upload multiple files.
-     *
-     * @param files a list of files.
-     * @return logs information.
-     */
-    @PostMapping("/multiple")
-    public Set<Set<LogInformationDTO>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.stream(files)
-                .map(this::upload)
-                .collect(Collectors.toSet());
     }
 
 }
